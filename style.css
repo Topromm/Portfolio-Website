@@ -1,0 +1,277 @@
+*{  /* Applies a set of styles to all HTML elements */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body { /* Sets preferred font families in order and defines colors color1 and color2 to make assigning colors easier later */
+    font-family: "Poppins", sans-serif;
+}
+
+.navbar { /* Navbar style */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    position: fixed;
+    background: linear-gradient(to right, #000000, #000000, #000000, #436674);
+    padding: 12px 20px;
+    z-index: 1000; 
+}
+
+.icon { /* Darkmode button style */
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dark-mode { /* Darkmode style */
+    color: white;
+}
+
+#mode-button { /* Changes cursor on hover over darkmode button */
+    cursor: pointer;
+}
+
+.home-button { /* Home button style */
+    margin-right: 28px;
+    flex: 1; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.home-button a { /* Home button style 2 */
+    text-decoration: none;
+    color: white;
+    font-weight: italic;
+    font-size: 18px;
+}
+
+.menu { /* Menu style */
+    display: flex;
+    align-items: center;
+}
+
+.menu li { /* Menu list style */
+    margin-top: 40px
+}
+
+.menu li a { /* Menu list style 2 */
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    transition: 0.15s ease-in-out;
+    position: relative;
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+.menu li a::after { /* Underlines menu items */
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    transition: 0.15s ease-in-out;
+}
+
+.menu li a:hover:after { /* Expands underline above */
+    width: 100%;
+}
+
+.open-menu , .close-menu { /* Menu open/close view */
+    position: absolute;
+    color: white;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: none;
+}
+
+.open-menu { /* Open menu size */
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+.close-menu { /* Close menu size */
+    top: 9px;
+    right: 23px;
+}
+
+#check { /* Hides checkbox used for menu */
+    display: none;
+}
+
+@media(max-width: 2000px){ /* Changes menu width based on window size */
+    .menu {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 10%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        z-index: 100;
+        background-color: black;
+        transition: all 0.2s ease-in-out;
+    }
+    @media (max-width: 1500px) {
+        .menu {
+            width: 20%;
+        }
+    }
+    @media (max-width: 1000px) {
+        .menu {
+            width: 30%;
+        }
+    }
+    @media (max-width: 500px) {
+        .menu {
+            width: 40%;
+        }
+    }
+    .menu li {margin-top: 40px;}
+    .menu li a {padding: 10px;}
+    .open-menu , .close-menu {display: block;}
+    #check:checked ~ .menu {right: 0;}
+}
+
+::-webkit-scrollbar {/* Track */
+    width: 16px;
+}
+
+::-webkit-scrollbar-thumb {/* Handle */
+    background-color: var(#37545f);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {/* Handle on hover */
+    background-color: var(#436674);
+}
+
+body {/* Track */
+    scrollbar-width: thin;
+    scrollbar-color: black;
+}
+
+body::-webkit-scrollbar-thumb {/* Handle */
+    background-color: black;
+}
+
+body::-webkit-scrollbar-thumb:hover {/* Handle on hover */
+    background-color: #436674;
+}
+
+body::-webkit-scrollbar-track {/* Track */
+    background-color: black;
+}
+
+.hero-container { /* Hero container style */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: calc(110vh);
+}
+
+.hero-content { /* Hero content style */
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    padding: 20px;
+    text-align: right;
+    color: white;
+    width: 70%;
+    font-size: 22.5px;
+}
+
+.hero-header { /* Hero header style */
+    font-size: 108px;
+    margin-right: -8px;
+    margin-bottom: -20px;
+}
+
+/* Note for self; have another look at this */
+.cta-button { /* Hero button style */
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cta-button.light-mode-button { /* Hero button lightmode */
+    background-color: #ebb390;
+    color: white; 
+}
+
+.cta-button.light-mode-button:hover { /* Hero button lightmode hover */
+    background-color: #be9174;
+}
+
+.cta-button.dark-mode-button { /* Hero button darkmode */
+    background-color: #436674;
+    color: white; 
+}
+
+.cta-button.dark-mode-button:hover { /* Hero button darkmode hover */
+    background-color: #37545f;
+}
+
+.edgeblur { /* Blurs hero image edge */
+    width: 100%;
+    height: 2560px;
+    position: relative; /* Allows using positioning properties */
+    top: -2300px;
+}
+
+.page-content2 { /* Page content style */
+    padding: 5px 400px;
+
+}
+
+.page-content3 { /* Page content style */
+    padding: 5px 400px;
+
+}
+
+.page-content5 { /* Page content style */
+    padding: 5px 400px;
+    margin-bottom: 200px
+}
+
+.placeholderforimagelater {
+    width: 350px;
+    height: 350px;
+    position: relative; /* Allows using positioning properties */
+    right: -1400px;
+    top: -200px;
+    animation: rotateLeftRight 20s linear infinite;
+}
+
+@keyframes rotateLeftRight {
+    0% {
+        transform: rotate(30deg); /* Start with no rotation */
+    }
+    50% {
+        transform: rotate(-30deg); /* Rotate to the left by -30 degrees */
+    }
+    100% {
+        transform: rotate(30deg); /* Rotate back to the original position */
+    }
+}
