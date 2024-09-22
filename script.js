@@ -1,8 +1,35 @@
-const isDarkMode = localStorage.getItem('darkMode') === 'true';
-const lightModeBackground = "./images/backgroundLightMode.png";
-const darkModeBackground = "./images/backgroundDarkMode.png";
-const lightModeEdgeBlur = "./images/edgeBlurLightMode.png";
-const darkModeEdgeBlur = "./images/edgeBlurDarkMode.png";
+const isDarkMode = localStorage.getItem("darkMode") === "true";
+
+// Define images for each page
+const images = {
+    index: {
+        light: "./images/bgLM_Index.png",
+        dark: "./images/bgDM_Index.png"
+    },
+    programming: {
+        light: "./images/bgLM_Programming.png",
+        dark: "./images/bgDM_Programming.png"
+    },
+    services: {
+        light: "./images/bgLM_Services.png",
+        dark: "./images/bgDM_Services.png"
+    },
+    portfolio: {
+        light: "./images/bgLM_Portfolio.png",
+        dark: "./images/bgDM_Portfolio.png"
+    },
+    contact: {
+        light: "./images/bgLM_Contact.png",
+        dark: "./images/bgDM_Contact.png"
+    }
+};
+
+// Determine the current page based on the URL
+const currentPage = window.location.pathname.split("/").pop().split(".")[0]; // Gets the page name (e.g. index)
+const currentImages = images[currentPage] || images.index; // Default to index if page not found
+
+const edgeBlur_LightMode = "./images/edgeBlur_LM.png";
+const edgeBlur_DarkMode = "./images/edgeBlur_DM.png";
 const modeButton = document.getElementById("mode-button");
 const contactButton = document.querySelector(".cta-button");
 const navbar = document.querySelector(".navbar");
@@ -19,25 +46,19 @@ function updateButton(isDarkMode) {
 }
 
 function updateNavbarBackground(isDarkMode) {
-    if (isDarkMode) {
-        navbar.style.background = "linear-gradient(to right, #436674, #000000, #000000, #000000)";
-        document.querySelector(".hero-container").style.backgroundImage = `url(${darkModeBackground})`;
-        document.getElementById("edge-blur").src = darkModeEdgeBlur;
-        body.style.backgroundColor = "#929493";
-    } else {
-        navbar.style.background = "linear-gradient(to right, #ebb390, #677788, #677788, #677788)";
-        document.querySelector(".hero-container").style.backgroundImage = `url(${lightModeBackground})`;
-        document.getElementById("edge-blur").src = lightModeEdgeBlur;
-        body.style.backgroundColor = "#b7b9b8";
-    }
+    const backgroundImage = isDarkMode ? currentImages.dark : currentImages.light; // Select the appropriate image
+    navbar.style.background = isDarkMode ? "linear-gradient(to right, #436674, #000000, #000000, #000000)" : "linear-gradient(to right, #ebb390, #677788, #677788, #677788)";
+    document.querySelector(".hero-container").style.backgroundImage = `url(${backgroundImage})`; // Update the hero background
+    document.getElementById("edge-blur").src = isDarkMode ? edgeBlur_DarkMode : edgeBlur_LightMode;
+    body.style.backgroundColor = isDarkMode ? "#929493" : "#b7b9b8";
 }
 
 function redirectToContactPage() {
     window.location.href = "contact.html";
 }
 
+// Call the functions to set the initial state
 updateButton(isDarkMode);
-
 if (isDarkMode) {
     body.classList.add("dark-mode");
     body.classList.remove("light-mode");
@@ -50,6 +71,7 @@ if (isDarkMode) {
     updateNavbarBackground(false);
 }
 
+// Event listener for mode button
 modeButton.addEventListener("click", () => {
     if (body.classList.contains("dark-mode")) {
         body.classList.add("light-mode");
