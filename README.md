@@ -1,8 +1,7 @@
-# Portfolio Website
-This is a website template for hosting varying personal projects, portfolio & other information all in one place!
+# My Website
+This is my website for hosting my portfolio, varying personal projects & other information all in one place!
 
 ## Key Features
 - Navbar
 - Darkmode toggle
-- Hamburger menu
-- Various modifiable pages
+- Compatible on all devices
