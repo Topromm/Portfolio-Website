@@ -4,7 +4,7 @@
     padding: 0;
 }
 
-body { /* Sets preferred font families in order and defines colors color1 and color2 to make assigning colors easier later */
+body { /* Sets preferred font families */
     font-family: "Poppins", sans-serif;
 }
 
@@ -53,10 +53,6 @@ body { /* Sets preferred font families in order and defines colors color1 and co
 .menu { /* Menu style */
     display: flex;
     align-items: center;
-}
-
-.menu li { /* Menu list style */
-    margin-top: 40px
 }
 
 .menu li a { /* Menu list style 2 */
@@ -143,58 +139,28 @@ body { /* Sets preferred font families in order and defines colors color1 and co
     #check:checked ~ .menu {right: 0;}
 }
 
-::-webkit-scrollbar {/* Track */
-    width: 16px;
-}
-
-::-webkit-scrollbar-thumb {/* Handle */
-    background-color: var(#37545f);
-    border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {/* Handle on hover */
-    background-color: var(#436674);
-}
-
-body {/* Track */
-    scrollbar-width: thin;
-    scrollbar-color: black;
-}
-
-body::-webkit-scrollbar-thumb {/* Handle */
-    background-color: black;
-}
-
-body::-webkit-scrollbar-thumb:hover {/* Handle on hover */
-    background-color: #436674;
-}
-
-body::-webkit-scrollbar-track {/* Track */
-    background-color: black;
-}
-
 .hero-container { /* Hero container style */
     background-attachment: fixed;
-    background-position: center;
+    background-position: right 70%;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 40%;
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: calc(110vh);
+    height: 100vh;
 }
 
 .hero-content { /* Hero content style */
     position: absolute;
-    top: 48%;
-    left: 60%;
+    top: 40%;
+    left: 45%;
     transform: translate(-50%, -50%);
-    z-index: 3;
     padding: 20px;
-    text-align: right;
+    text-align: left;
     color: white;
     width: 70%;
     font-size: 22.5px;
+    z-index: 3;
 }
 
 .hero-header { /* Hero header style */
@@ -203,7 +169,6 @@ body::-webkit-scrollbar-track {/* Track */
     margin-bottom: 0px;
 }
 
-/* Note for self; have another look at this */
 .cta-button { /* Hero button style */
     margin-top: 20px;
     display: inline-block;
@@ -215,15 +180,6 @@ body::-webkit-scrollbar-track {/* Track */
     font-size: 16px;
 }
 
-.cta-button.light-mode-button { /* Hero button lightmode */
-    background-color: #ebb390;
-    color: white; 
-}
-
-.cta-button.light-mode-button:hover { /* Hero button lightmode hover */
-    background-color: #be9174;
-}
-
 .cta-button.dark-mode-button { /* Hero button darkmode */
     background-color: #436674;
     color: white; 
@@ -233,45 +189,28 @@ body::-webkit-scrollbar-track {/* Track */
     background-color: #37545f;
 }
 
+.cta-button.light-mode-button { /* Hero button lightmode */
+    background-color: #ebb390;
+    color: white; 
+}
+
+.cta-button.light-mode-button:hover { /* Hero button lightmode hover */
+    background-color: #be9174;
+}
+
 .edgeblur { /* Blurs hero image edge */
     width: 100%;
     height: 2560px;
-    position: relative; /* Allows using positioning properties */
+    position: relative;
     top: -2300px;
 }
 
-.page-content2 { /* Page content style */
+.page-content { /* Page content style */
     text-align: center;
-    padding: 50px;
+    padding: 40px;
 }
 
-.page-content3 { /* Page content style */
+footer {
     text-align: center;
-    padding: 50px;
-}
-
-.page-content4 { /* Page content style */
-    text-align: center;
-    padding: 50px;
-}
-
-.placeholderforimagelater {
-    width: 350px;
-    height: 350px;
-    position: relative; /* Allows using positioning properties */
-    right: -1400px;
-    top: -200px;
-    animation: rotateLeftRight 20s linear infinite;
-}
-
-@keyframes rotateLeftRight {
-    0% {
-        transform: rotate(30deg); /* Start with no rotation */
-    }
-    50% {
-        transform: rotate(-30deg); /* Rotate to the left by -30 degrees */
-    }
-    100% {
-        transform: rotate(30deg); /* Rotate back to the original position */
-    }
+    margin-bottom: 20px;
 }
