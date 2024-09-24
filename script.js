@@ -6,21 +6,21 @@ const images = {
         light: "./images/bgLM_Index.png",
         dark: "./images/bgDM_Index.png"
     },
-    programming: {
-        light: "./images/bgLM_Programming.png",
-        dark: "./images/bgDM_Programming.png"
+    music: {
+        light: "./images/bgLM_Music.png",
+        dark: "./images/bgDM_Music.png"
     },
-    services: {
-        light: "./images/bgLM_Services.png",
-        dark: "./images/bgDM_Services.png"
+    photography: {
+        light: "./images/bgLM_Photography.png",
+        dark: "./images/bgDM_Photography.png"
     },
-    portfolio: {
-        light: "./images/bgLM_Portfolio.png",
-        dark: "./images/bgDM_Portfolio.png"
+    "3d-art-printing": {
+        light: "./images/bgLM_3d-art-printing.png",
+        dark: "./images/bgDM_3d-art-printing.png"
     },
-    contact: {
-        light: "./images/bgLM_Contact.png",
-        dark: "./images/bgDM_Contact.png"
+    "software-development": {
+        light: "./images/bgLM_software-development.png",
+        dark: "./images/bgDM_software-development.png"
     }
 };
 
