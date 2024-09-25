@@ -41,12 +41,11 @@ body { /* Sets preferred font families */
     text-decoration: none;
     color: white;
     font-size: 18px;
-    transition: color 0.3s, font-size 0.3s;
+    transition: color 0.3s;
 }
 
 .home-button a:hover { /* Home button hover style */
     color: #cccccc;
-    font-size: 20px;
 }
 
 .menu { /* Menu style */
@@ -166,14 +165,41 @@ body { /* Sets preferred font families */
 }
 
 .hero-header { /* Hero header style */
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-color: #cccccc;
     font-size: 60px;
     margin-right: 0px;
     margin-bottom: 0px;
 }
 
+.hover-link {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.hover-link#developer:hover {
+    color: rgb(15, 81, 196);
+}
+
+.hover-link#artist:hover {
+    color: rgb(31, 145, 14);
+}
+
+.hover-link#photographer:hover {
+    color: rgb(89, 106, 136);
+}
+
+.hover-link#musician:hover {
+    color: rgb(114,9,183);
+}
+
+
 .cta-button { /* Updated Hero button style */
-    position: absolute;
-    left: 24.45%;
+    position: relative;
+    right: 172.5%;
+    top: 10px;
     padding: 10px 20px;
     color: white;
     border: none;
