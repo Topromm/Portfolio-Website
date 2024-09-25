@@ -18,6 +18,7 @@ body { /* Sets preferred font families */
     background: linear-gradient(to right, #000000, #000000, #000000, #436674);
     padding: 12px 20px;
     z-index: 1000; 
+    user-select: none;
 }
 
 .home-container {
@@ -26,30 +27,26 @@ body { /* Sets preferred font families */
     transform: translateX(-50%);
 }
 
-.icon { /* Darkmode button style */
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.dark-mode { /* Darkmode style */
-    color: white;
-}
-
-#mode-button { /* Changes cursor on hover over darkmode button */
+.icon { /* Darkmode button style (2 times the root element's font size.) */
+    font-size: 2rem;
     cursor: pointer;
+    color: white
 }
 
 .home-button { /* Home button style */
     list-style: none;
 }
 
-.home-button a { /* Home button style 2 */
+.home-button a { /* Home button style */
     text-decoration: none;
     color: white;
-    font-weight: italic;
     font-size: 18px;
+    transition: color 0.3s, font-size 0.3s;
+}
+
+.home-button a:hover { /* Home button hover style */
+    color: #cccccc;
+    font-size: 20px;
 }
 
 .menu { /* Menu style */
@@ -98,15 +95,15 @@ body { /* Sets preferred font families */
 }
 
 .close-menu { /* Close menu size */
-    top: 9px;
-    right: 23px;
+    top: 14px;
+    right: 21.5px;
 }
 
 #check { /* Hides checkbox used for menu */
     display: none;
 }
 
-@media(max-width: 1480px){ /* Changes menu width based on window size */
+@media(max-width: 1520px){ /* Changes menu width based on window size */
     .menu {
         flex-direction: column;
         align-items: center;
@@ -174,17 +171,16 @@ body { /* Sets preferred font families */
     margin-bottom: 0px;
 }
 
-.cta-button { /* Hero button style */
-    margin-top: 20px;
-    margin-right: 420px;
-    align-self: flex-start;
-    display: inline-block;
+.cta-button { /* Updated Hero button style */
+    position: absolute;
+    left: 24.45%;
     padding: 10px 20px;
     color: white;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
+    user-select: none;
 }
 
 .cta-button.light-mode-button { /* Hero button lightmode */
@@ -206,6 +202,7 @@ body { /* Sets preferred font families */
 }
 
 .edgeblur { /* Blurs hero image edge */
+    user-select: none;
     width: 100%;
     height: 2560px;
     position: relative;

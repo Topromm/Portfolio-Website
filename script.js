@@ -35,6 +35,7 @@ const contactButton = document.querySelector(".cta-button");
 const navbar = document.querySelector(".navbar");
 const body = document.body;
 
+// Function to update the button styling based on the current mode
 function updateButton(isDarkMode) {
     if (isDarkMode) {
         contactButton.classList.remove("light-mode-button");
@@ -45,6 +46,7 @@ function updateButton(isDarkMode) {
     }
 }
 
+// Function to update the navbar background and hero background based on mode
 function updateNavbarBackground(isDarkMode) {
     const backgroundImage = isDarkMode ? currentImages.dark : currentImages.light; // Select the appropriate image
     navbar.style.background = isDarkMode ? "linear-gradient(to right, #436674, #000000, #000000, #000000)" : "linear-gradient(to right, #ebb390, #677788, #677788, #677788)";
@@ -53,40 +55,51 @@ function updateNavbarBackground(isDarkMode) {
     body.style.backgroundColor = isDarkMode ? "#929493" : "#b7b9b8";
 }
 
-function redirectToContactPage() {
-    window.location.href = "contact.html";
+// Function to update the Font Awesome icon for light/dark mode toggle
+function updateIcon(isDarkMode) {
+    const modeIcon = document.getElementById("mode-icon");
+
+    if (isDarkMode) {
+        modeIcon.classList.remove("fa-sun");
+        modeIcon.classList.add("fa-moon");
+    } else {
+        modeIcon.classList.remove("fa-moon");
+        modeIcon.classList.add("fa-sun");
+    }
 }
 
-// Call the functions to set the initial state
+// Call the functions to set the initial state when the page loads
 updateButton(isDarkMode);
 if (isDarkMode) {
     body.classList.add("dark-mode");
     body.classList.remove("light-mode");
-    modeButton.innerHTML = `<img src="./images/moon.png" alt="Moon" class="icon" id="moon-icon">`;
     updateNavbarBackground(true);
+    updateIcon(true);  // Show moon icon in dark mode
 } else {
     body.classList.add("light-mode");
     body.classList.remove("dark-mode");
-    modeButton.innerHTML = `<img src="./images/sun.png" alt="Sun" class="icon" id="sun-icon">`;
     updateNavbarBackground(false);
+    updateIcon(false); // Show sun icon in light mode
 }
 
 // Event listener for mode button
 modeButton.addEventListener("click", () => {
-    if (body.classList.contains("dark-mode")) {
+    const isDarkMode = body.classList.contains("dark-mode");
+
+    if (isDarkMode) {
         body.classList.add("light-mode");
         body.classList.remove("dark-mode");
-        modeButton.innerHTML = `<img src="./images/sun.png" alt="Sun" class="icon" id="sun-icon">`;
         localStorage.setItem("darkMode", "false");
         updateButton(false);
-        updateNavbarBackground(false); // Change background image for light mode
+        updateNavbarBackground(false);
+        updateIcon(false); // Change to sun icon
     } else {
         body.classList.add("dark-mode");
         body.classList.remove("light-mode");
-        modeButton.innerHTML = `<img src="./images/moon.png" alt="Moon" class="icon" id="moon-icon">`;
         localStorage.setItem("darkMode", "true");
         updateButton(true);
-        updateNavbarBackground(true); // Change background image for dark mode
+        updateNavbarBackground(true);
+        updateIcon(true); // Change to moon icon
     }
 });
 
