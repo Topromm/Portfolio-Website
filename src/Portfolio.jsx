@@ -23,73 +23,71 @@ function Portfolio() {
   }, [isDarkMode]);
 
   const photoPlaceholders = [
-    '/assets/photography/1.jpg',
-    '/assets/photography/2.jpg',
-    '/assets/photography/3.jpg',
-    '/assets/photography/4.jpg',
-    '/assets/photography/5.jpg',
-    '/assets/photography/6.jpg',
-    '/assets/photography/7.jpg',
-    '/assets/photography/8.jpg',
-    '/assets/photography/9.jpg',
-    '/assets/photography/10.jpg',
-    '/assets/photography/11.jpg',
-    '/assets/photography/12.jpg',
-    '/assets/photography/13.jpg',
-    '/assets/photography/14.jpg',
-    '/assets/photography/15.jpg',
-    '/assets/photography/16.jpg',
-    '/assets/photography/17.jpg',
-    '/assets/photography/18.jpg',
-    '/assets/photography/19.jpg',
-    '/assets/photography/20.jpg',
-    '/assets/photography/21.jpg',
-    '/assets/photography/22.jpg',
-    '/assets/photography/23.jpg',
-    '/assets/photography/24.jpg',
-    '/assets/photography/25.jpg',
-    '/assets/photography/26.jpg',
-    '/assets/photography/27.jpg',
-    '/assets/photography/28.jpg',
+    '/assets/photography/1.webp',
+    '/assets/photography/2.webp',
+    '/assets/photography/3.webp',
+    '/assets/photography/4.webp',
+    '/assets/photography/5.webp',
+    '/assets/photography/6.webp',
+    '/assets/photography/7.webp',
+    '/assets/photography/8.webp',
+    '/assets/photography/9.webp',
+    '/assets/photography/10.webp',
+    '/assets/photography/11.webp',
+    '/assets/photography/12.webp',
+    '/assets/photography/13.webp',
+    '/assets/photography/14.webp',
+    '/assets/photography/15.webp',
+    '/assets/photography/16.webp',
+    '/assets/photography/17.webp',
+    '/assets/photography/18.webp',
+    '/assets/photography/19.webp',
+    '/assets/photography/20.webp',
+    '/assets/photography/21.webp',
+    '/assets/photography/22.webp',
+    '/assets/photography/23.webp',
+    '/assets/photography/24.webp',
+    '/assets/photography/25.webp',
+    '/assets/photography/26.webp',
+    '/assets/photography/27.webp',
+    '/assets/photography/28.webp',
   ];
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImg, setModalImg] = useState(null);
+  const [modalIdx, setModalIdx] = useState(null);
 
   const [hoveredIdx, setHoveredIdx] = useState(null);
 
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [minSpinnerTimeDone, setMinSpinnerTimeDone] = useState(false);
+  const [fadeInPhotos, setFadeInPhotos] = useState(Array(photoPlaceholders.length).fill(false));
 
   useEffect(() => {
     if (view === 'photography') {
-      setImagesLoaded(false);
-      setMinSpinnerTimeDone(false);
-      const timer = setTimeout(() => setMinSpinnerTimeDone(true), 300);
-      return () => clearTimeout(timer);
+      setFadeInPhotos(Array(photoPlaceholders.length).fill(false));
+      photoPlaceholders.forEach((_, i) => {
+        setTimeout(() => {
+          setFadeInPhotos(prev => {
+            const next = [...prev];
+            next[i] = true;
+            return next;
+          });
+        }, 100 + i * 60);
+      });
     }
-  }, [view]);
-
-  useEffect(() => {
-    if (view !== 'photography') return;
-    let loaded = 0;
-    const imgs = [];
-    photoPlaceholders.forEach((src) => {
-      const img = new window.Image();
-      img.onload = img.onerror = () => {
-        loaded++;
-        if (loaded === photoPlaceholders.length) {
-          setImagesLoaded(true);
-        }
-      };
-      img.src = src;
-      imgs.push(img);
-    });
-  }, [view, photoPlaceholders]);
+  }, [view, photoPlaceholders.length]);
 
   return (
     <>
       <style>{`
+        .photo-fadein-wrapper {
+          opacity: 1;
+          transform: translateY(0);
+          transition: opacity 0.7s cubic-bezier(.23,1.02,.53,.97), transform 0.7s cubic-bezier(.23,1.02,.53,.97);
+        }
+        .photo-fadein-wrapper.photo-hidden {
+          opacity: 0;
+          transform: translateY(30px);
+        }
         .photo-square {
           width: 220px;
           aspect-ratio: 1/1;
@@ -106,18 +104,6 @@ function Portfolio() {
           transform: translateY(-8px) scale(1.05); /* reduced pop effect */
           box-shadow: 0 8px 24px 0 #0005, 0 2px 12px #0002;
           z-index: 2;
-        }
-        .spinner {
-          width: 48px;
-          height: 48px;
-          border: 6px solid #bbb;
-          border-top: 6px solid #0077cc;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
         }
       `}</style>
       <header>
@@ -221,49 +207,46 @@ function Portfolio() {
             </button>
             <div
               style={{
-                display: (imagesLoaded && minSpinnerTimeDone) ? 'grid' : 'none',
+                display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
                 gap: '32px',
                 width: '100%',
                 justifyItems: 'center',
               }}
             >
+              <style>{photoPlaceholders.map((_, i) => `.photo-fadein-wrapper.photo-fadein-${i} { transition-delay: ${i * 60}ms !important; }`).join('\n')}</style>
               {photoPlaceholders.map((src, i) => (
                 <div key={src} style={{ width: '100%', maxWidth: 320, display: 'flex', justifyContent: 'center' }}>
                   <div
-                    className={"photo-square" + (hoveredIdx === i ? " pop" : "")}
-                    onMouseEnter={() => setHoveredIdx(i)}
-                    onMouseLeave={() => setHoveredIdx(null)}
-                    onClick={() => { setModalImg(src); setModalOpen(true); }}
+                    className={
+                      `photo-fadein-wrapper${fadeInPhotos[i] ? ` photo-fadein-${i}` : ' photo-hidden'}`
+                    }
                   >
-                    <img
-                      src={src}
-                      alt={`Photography ${i+1}`}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                        borderRadius: 18,
-                        display: 'block',
-                        transition: 'transform 0.2s',
-                      }}
-                      onLoad={e => {
-                        if (i === photoPlaceholders.length - 1) {
-                          setTimeout(() => setImagesLoaded(true), 50);
-                        }
-                      }}
-                    />
+                    <div
+                      className={`photo-square${hoveredIdx === i ? ' pop' : ''}`}
+                      onMouseEnter={() => setHoveredIdx(i)}
+                      onMouseLeave={() => setHoveredIdx(null)}
+                      onClick={() => { setModalImg(src); setModalIdx(i); setModalOpen(true); }}
+                    >
+                      <img
+                        src={src}
+                        alt={`Photography ${i+1}`}
+                        loading="lazy"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          objectPosition: 'center',
+                          borderRadius: 18,
+                          display: 'block',
+                          transition: 'transform 0.2s',
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-            {!(imagesLoaded && minSpinnerTimeDone) && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 320, width: '100%' }}>
-                <div className="spinner" style={{ margin: '48px 0' }}></div>
-                <span style={{ color: '#888', fontSize: '1.1rem', marginTop: 12 }}>Loading photos…</span>
-              </div>
-            )}
           </div>
         )}
 
@@ -285,6 +268,37 @@ function Portfolio() {
             }}
             onClick={() => setModalOpen(false)}
           >
+            {/* Left arrow */}
+            <button
+              onClick={e => {
+                e.stopPropagation();
+                const newIdx = (modalIdx - 1 + photoPlaceholders.length) % photoPlaceholders.length;
+                setModalIdx(newIdx);
+                setModalImg(photoPlaceholders[newIdx]);
+              }}
+              style={{
+                position: 'absolute',
+                left: 32,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(0,0,0,0.5)',
+                border: 'none',
+                borderRadius: '50%',
+                width: 48,
+                height: 48,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                zIndex: 10001,
+              }}
+              aria-label="Previous photo"
+            >
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="14" cy="14" r="14" fill="#222"/>
+                <path d="M17 8L11 14L17 20" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
             <img
               src={modalImg}
               alt="Big view"
@@ -298,6 +312,37 @@ function Portfolio() {
               }}
               onClick={e => e.stopPropagation()}
             />
+            {/* Right arrow */}
+            <button
+              onClick={e => {
+                e.stopPropagation();
+                const newIdx = (modalIdx + 1) % photoPlaceholders.length;
+                setModalIdx(newIdx);
+                setModalImg(photoPlaceholders[newIdx]);
+              }}
+              style={{
+                position: 'absolute',
+                right: 32,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(0,0,0,0.5)',
+                border: 'none',
+                borderRadius: '50%',
+                width: 48,
+                height: 48,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                zIndex: 10001,
+              }}
+              aria-label="Next photo"
+            >
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="14" cy="14" r="14" fill="#222"/>
+                <path d="M11 8L17 14L11 20" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
             {/* Close X icon */}
             <button
               onClick={() => setModalOpen(false)}

@@ -9,6 +9,17 @@ function LandingPage() {
   const [whatIDoVisible, setWhatIDoVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [asciiArtIdx, setAsciiArtIdx] = useState(0);
+  const [showAsciiArt, setShowAsciiArt] = useState(() => window.innerWidth >= 1700);
+  const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
+  useEffect(() => {
+    function handleResize() {
+  setShowAsciiArt(window.innerWidth >= 1701);
+      setWindowWidth(window.innerWidth);
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handler = () => setIsDarkMode(localStorage.getItem("darkMode") === "true");
@@ -118,28 +129,112 @@ function LandingPage() {
     </header>
 
     <section className="hero-container">
-      <div className="hero-content">
-        <h1 className="hero-header">Topias Romppanen</h1>
-        <p className="hero-paragraph">
-          Full-Stack Developer
-          <br/>
-          3D Generalist
-          <br/>
-        </p>
-        <Link
-          to="/contact"
-          className={`cta-button sparkle-btn ${isDarkMode ? "dark-mode-button" : "light-mode-button"}`}
-          style={{ position: "relative", overflow: "hidden", display: "inline-flex", alignItems: "center", gap: "0.5em" }}
-        >
-          {/* Sparkle SVGs */}
-          <svg viewBox="0 0 96 96" fill="none"><path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/></svg>
-          <svg viewBox="0 0 96 96" fill="none"><path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/></svg>
-          <svg viewBox="0 0 96 96" fill="none"><path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/></svg>
-          <svg viewBox="0 0 96 96" fill="none"><path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/></svg>
-          <span>Contact me</span>
-        </Link>
+      {/* Show image above hero header in light mode only, and only if width < 700px (mobile) */}
+      {!isDarkMode && windowWidth < 700 && (
+        <img
+          src="/assets/me.webp"
+          alt="Topias Romppanen"
+          style={{
+            width: 180,
+            height: 180,
+            borderRadius: '50%',
+            objectFit: 'cover',
+            boxShadow: '0 6px 32px #0003',
+            border: '4px solid #fff',
+            background: '#eee',
+            display: 'block',
+            margin: '0 auto 1.5rem auto',
+            position: 'static',
+            zIndex: 2,
+          }}
+        />
+      )}
+      <div className="hero-content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 32 }}>
+    <div style={{ flex: 1, zIndex: 1 }}>
+          <h1 className="hero-header">
+            Topias <span className="hero-header-break">Romppanen</span>
+          </h1>
+      {/* Responsive font size for hero header on mobile only */}
+      <style>{`
+        @media (max-width: 1350px) and (min-width: 1001px) {
+          .hero-container {
+            margin-left: -70px !important;
+          }
+        }
+        @media (max-width: 700px) {
+          .hero-header {
+            font-size: 2rem !important;
+          }
+        }
+        @media (max-width: 1700px) {
+          .hero-header-break {
+            display: block;
+          }
+        }
+        @media (min-width: 1701px) {
+          .hero-header-break {
+            display: inline;
+          }
+        }
+      `}</style>
+          <p className="hero-paragraph">
+            Full-Stack Developer
+            <br/>
+            3D Generalist
+            <br/>
+          </p>
+          <Link
+            to="/contact"
+            className={`cta-button sparkle-btn ${isDarkMode ? "dark-mode-button" : "light-mode-button"}`}
+            style={{ position: "relative", overflow: "hidden", display: "inline-flex", alignItems: "center", gap: "0.5em" }}
+          >
+            {/* Sparkle SVGs */}
+            <svg viewBox="0 0 96 96" fill="none"><path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/></svg>
+            <svg viewBox="0 0 96 96" fill="none"><path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/></svg>
+            <svg viewBox="0 0 96 96" fill="none"><path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/></svg>
+            <svg viewBox="0 0 96 96" fill="none"><path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/></svg>
+            <span>Contact me</span>
+          </Link>
+        </div>
+        {/* Show image in light mode only */}
+          {/* Show image in light mode only, in its default position for non-mobile views */}
+          {!isDarkMode && windowWidth >= 700 && (
+            <img
+              src="/assets/me.webp"
+              alt="Topias Romppanen"
+              style={{
+                position: 'absolute',
+                right: (() => {
+                  if (windowWidth >= 1701) return '-200px';
+                  if (windowWidth <= 1501) return '-200px';
+                  // interpolate between -120px (at 1500) and 0px (at 1000)
+                  const px = -120 * (windowWidth - 1000) / 500;
+                  return `${px}px`;
+                })(),
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width:
+                  windowWidth < 1701
+                    ? 420
+                    : 360,
+                height:
+                  windowWidth < 1701
+                    ? 420
+                    : 360,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                boxShadow: '0 12px 64px #0003',
+                border: '8px solid #fff',
+                background: '#eee',
+                display: 'block',
+                zIndex: 2,
+                transition: 'all 0.3s cubic-bezier(.23,1.02,.53,.97)',
+              }}
+            />
+          )}
       </div>
-      {isDarkMode && (
+      {/* Show ASCII art in dark mode only, and only if width >= 1800px */}
+      {isDarkMode && showAsciiArt && (
         <pre
           className="hero-face-ascii"
           style={{

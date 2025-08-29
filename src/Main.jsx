@@ -8,6 +8,7 @@ import Portfolio from "./Portfolio";
 import Contact from "./Contact";
 import LunaBox from "./LunaBox";
 import NoBrakes from "./NoBrakes";
+import NotFound from "./NotFound";
 import React from "react";
 import "./style.css";
 
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/Contact" element={<Contact/>}/>
         <Route path="/LunaBox" element={<LunaBox/>}/>
         <Route path="/NoBrakes" element={<NoBrakes/>}/>
+        <Route path="*" element={<NotFound/>}/> {/* 404 route */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

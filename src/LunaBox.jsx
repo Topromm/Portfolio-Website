@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 
-function LunaBox() {
+function lunabox() {
   const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem("darkMode") === "true");
   const [menuOpen, setMenuOpen] = useState(false);
   
@@ -302,4 +302,4 @@ function LunaBox() {
   );
 }
 
-export default LunaBox;
+export default lunabox;
