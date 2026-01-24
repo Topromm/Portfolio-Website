@@ -22,6 +22,6 @@ This is my modern, interactive portfolio website built with React and Vite. It s
 
 ## License
 
-© Copyright 2025 Topromm.
+© Copyright 2026 Topromm.
 
 
